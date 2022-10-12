@@ -6,18 +6,27 @@
 #
 #===============================================================================
 #
-# To this script works, put it above main. At PScreen_Pokegear script section 
-# (PokemonPokegear in older versions), before line 'Graphics.transition' add
-# line 'initializeWatch'.
+# To this script works, put it above main. At PScreen_Pokegear script section, 
+# before line 'pbFadeInAndShow(@sprites) { pbUpdate }' add line
+# 'initializeWatch'.
 #
-# I suggest you to change the pokégear pokegearbg.png and pokegearbgf.png (at 
-# Graphics\Pictures).
+# I suggest you to change the pokégear bg.png and bg_f.png (at 
+# Graphics\Pictures\Pokegear).
 #
 #===============================================================================
 
-class Scene_Pokegear
-  alias :_old_fl_watch_update :update
-  def update
+if defined?(PluginManager) && !PluginManager.installed?("Pokegear Watch")
+  PluginManager.register({                                                 
+    :name    => "Pokegear Watch",                                        
+    :version => "1.1.1",                                                     
+    :link    => "https://www.pokecommunity.com/showthread.php?t=323464",             
+    :credits => "FL"
+  })
+end
+
+class PokemonPokegear_Scene
+  alias :_old_fl_watch_update :pbUpdate
+  def pbUpdate
     updateDateIfNecessary
     _old_fl_watch_update
   end
